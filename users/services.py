@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 
 from users.models import FollowModel
-from utils.object_utils import handle_not_found
+from utils.decorators.object_utils import handle_not_found
 
 class UserService:
     def create_user(self, username: str, email: str, password: str) -> User:

@@ -12,7 +12,7 @@ from users.use_cases.user_use_case.get_user_by_id       import GetUserByIdUseCas
 from users.use_cases.user_use_case.get_all_users        import GetAllUsersUseCase
 from users.use_cases.user_use_case.register_user         import RegisterUserUseCase
 
-
+from utils.decorators.param_validator import validate_required_params
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -39,10 +39,9 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
     @action(detail=False, methods=['GET'])
+    @validate_required_params(params=["user_id"], source="query_params")
     def get_user_by_id(self, *args, **kwargs):
-        req = self.request.query_params
-
-        user_id = req['user_id'] if 'user_id' in req else None
+        user_id = self.request.query_params['user_id']
 
         try:
             use_case = GetUserByIdUseCase()
@@ -53,11 +52,10 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(data=str(e), status=status.HTTP_404_NOT_FOUND)
     
     @action(detail=False, methods=['GET'])
+    @validate_required_params(params=["username"], source="query_params")
     def get_user_by_username(self, *args, **kwargs):
-        req = self.request.query_params
+        username = self.request.query_params['username']
 
-        username = req['username'] if 'username' in req else None
-        print(username)
         try:
             use_case = GetUserByUsernameUseCase()
             user = use_case.execute(username=username)
@@ -67,10 +65,9 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(data=str(e), status=status.HTTP_404_NOT_FOUND)
     
     @action(detail=False, methods=['GET'])
+    @validate_required_params(params=["email"], source="query_params")
     def get_user_by_email(self, *args, **kwargs):
-        req = self.request.query_params
-
-        email = req['email'] if 'email' in req else None
+        email = self.request.query_params['email']
 
         try:
             use_case = GetUserByEmailUseCase()
