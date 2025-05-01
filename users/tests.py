@@ -1,6 +1,6 @@
 from django.test import TestCase, RequestFactory
 from rest_framework import status
-from .views import *
+from users.use_cases.create_user.view import UserViewSet
 from . models import *
 from django.contrib.auth.models import User
 
