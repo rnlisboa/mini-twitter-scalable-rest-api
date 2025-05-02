@@ -1,4 +1,4 @@
-from users.services import UserService
+from users.services.services import UserService
 
 class RegisterUserUseCase:
     def __init__(self, user_service=None):

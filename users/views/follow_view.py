@@ -1,11 +1,12 @@
 from users.models import FollowModel
 
-from rest_framework.decorators import action
-from rest_framework.response   import Response
-from rest_framework            import (status, 
+from rest_framework.permissions    import IsAuthenticated
+from rest_framework.decorators     import action
+from rest_framework.response       import Response
+from rest_framework                import (status, 
                                        viewsets)
 
-from users.serializer import FollowSerializer
+from users.serializers.follow_serializer import FollowSerializer
 from users.use_cases.follow_use_case.follow_user import FollowUserUseCase
 from users.use_cases.follow_use_case.get_following_users import GetFollowingUserUseCase
 from users.use_cases.follow_use_case.unfollow_user import UnfollowUserUseCase
@@ -17,8 +18,7 @@ class FollowViewSet(viewsets.ModelViewSet):
 
     serializer_class = FollowSerializer
     
-    @action(detail=False, methods=['POST'])
-    @validate_required_params(params=["user_id", "follower_id"], source="query_params")
+    @action(detail=False, methods=['POST'], permission_classes=[IsAuthenticated])
     def follow_user(self, *args, **kwargs):
         req = self.request.data
 
@@ -32,8 +32,7 @@ class FollowViewSet(viewsets.ModelViewSet):
         except Exception as e:
             return Response(data={'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
-    @action(detail=False, methods=['DELETE'])
-    @validate_required_params(params=["user_id", "following_id"], source="query_params")
+    @action(detail=False, methods=['DELETE'], permission_classes=[IsAuthenticated])
     def unfollow_user(self, *args, **kwargs):
         req = self.request.data
         user_id = req['user_id']
@@ -46,7 +45,7 @@ class FollowViewSet(viewsets.ModelViewSet):
         except Exception as e:
             return Response(data={'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
-    @action(detail=False, methods=['GET'])
+    @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
     @validate_required_params(params=["user_id"], source="query_params")
     def get_follow_user(self, *args, **kwargs):
         user_id = self.request.query_params['user_id']

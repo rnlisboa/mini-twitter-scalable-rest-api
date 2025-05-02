@@ -20,7 +20,7 @@ class UserService:
         user.save()
         return user
 
-    def follow_user(self, user_id: str, follower_id: str) -> User:
+    def follow_user(self, user_id: int, follower_id: str) -> User:
         user = self.get_user_by_id(user_id=user_id)
         follower = self.get_user_by_id(user_id=follower_id)
         
@@ -32,7 +32,7 @@ class UserService:
         follow.save()
         return follow
     
-    def unfollow_user(self, user_id: str, follower_id: str) -> None:
+    def unfollow_user(self, user_id: int, follower_id: str) -> None:
         user = self.get_user_by_id(user_id=user_id)
         follower = self.get_user_by_id(user_id=follower_id)
         
@@ -53,7 +53,7 @@ class UserService:
         return User.objects.all()
 
     @handle_not_found("Usuário não encontrado.")
-    def get_user_by_id(self, user_id: str) -> User:
+    def get_user_by_id(self, user_id: int) -> User:
         user = User.objects.get(id=user_id)
         return user
     

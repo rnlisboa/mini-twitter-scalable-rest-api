@@ -1,8 +1,8 @@
 from django.urls import path
 from rest_framework import routers
 
-from users.use_cases.follow_use_case.view import FollowViewSet
-from users.use_cases.user_use_case.view import UserViewSet
+from users.views.follow_view import FollowViewSet
+from users.views.user_view import UserViewSet
 
 router = routers.DefaultRouter()
 router.register('', UserViewSet)
