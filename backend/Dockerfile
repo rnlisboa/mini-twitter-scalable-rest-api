@@ -19,5 +19,7 @@ ENV PATH="/env/bin:$PATH"
 
 EXPOSE 8000
 
+RUN python manage.py collectstatic --noinput
+
 # Comando padrão para rodar o servidor
 CMD ["sh", "-c", "python manage.py migrate && gunicorn config.asgi:application -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000"]

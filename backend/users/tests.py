@@ -37,7 +37,7 @@ class UserViewSetTestCase(TestCase):
             response = self.view(request)
             self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
             self.assertEqual(User.objects.count(), 0)
-            print(response.data)
+  
             self.assertEqual(
                 response.data,
                 {
