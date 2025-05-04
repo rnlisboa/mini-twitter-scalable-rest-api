@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 def upload_image(instance, filename):
-    return f'images/profiles/{instance}-{filename}'
+    return f'images/posts/user_{instance.owner.id}/{filename}'
 
 class Status(models.IntegerChoices):
     DRAFT = 0, 'Draft'
@@ -21,8 +21,15 @@ class PostModel(models.Model):
     )
     like_count = models.IntegerField(default=0)
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['owner']),
+            models.Index(fields=['-created_at']),
+        ]
+
 class LikeModel(models.Model):
-    user = models.ForeignKey(
-         User, on_delete=models.CASCADE, verbose_name='User'
-    )
-    post = models.ForeignKey(PostModel, on_delete=models.CASCADE, verbose_name='Post')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(PostModel, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user', 'post')

@@ -8,6 +8,6 @@ class GetFollowingPostUseCase:
     
     def execute(self, user_id: int):
         get_following_use_case = GetFollowingUserUseCase()
-        follwing = get_following_use_case.execute(user_id=user_id)
+        following = get_following_use_case.execute(user_id=user_id)
 
-        return self.post_service.get_following_post(user_id=user_id, following=follwing)
+        return self.post_service.get_following_post(user_id=user_id, following=following)
