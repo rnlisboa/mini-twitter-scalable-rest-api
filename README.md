@@ -2,6 +2,14 @@
 
 Esta documentação descreve como interagir com a **Mini Twitter API** para realizar operações relacionadas a usuários, seguidores, posts e likes.
 
+## **Como subir a aplicação**
+
+No diretório raiz
+
+```
+ docker-compose up --build
+```
+
 ## 🔐 **Autenticação**
 
 Todas as requisições que envolvem ações de usuários (criação de posts, seguir usuários, etc.) requerem autenticação via **JWT Token**.
