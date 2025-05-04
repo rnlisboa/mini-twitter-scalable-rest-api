@@ -6,6 +6,8 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    networks:
+      - mini_twitter_network
 
   web:
     build:
@@ -21,8 +23,11 @@ services:
       - CELERY_BACKEND = 'redis://redis:6379/0'
     depends_on:
       - redis
+      - db
     env_file:
       - .env
+    networks:
+      - mini_twitter_network
 
   celery:
     build: .
@@ -35,6 +40,26 @@ services:
       - web
     environment:
       - REDIS_HOST=redis
+    networks:
+      - mini_twitter_network
+  db:
+    image: postgres:14
+    container_name: db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mini_twitter
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - mini_twitter_network
 
 volumes:
   redis_data:
+  postgres_data:
+
+networks:
+  mini_twitter_network:
+    driver: bridge
