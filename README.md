@@ -10,7 +10,7 @@ No diretório raiz
  docker-compose up --build
 ```
 
-acessar: /redoc/ para documentação completa
+acessar: /redoc/ ou /swagger/ para documentação completa
 
 ## 🔐 **Autenticação**
 
