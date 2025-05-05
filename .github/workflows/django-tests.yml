@@ -1,9 +1,8 @@
-name: Run User Tests
+name: Django CI
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
 
 jobs:
   test:
@@ -11,23 +10,42 @@ jobs:
 
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      DB_ENGINE: django.db.backends.sqlite3
-      DB_NAME: "db.sqlite3"
+
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          DATABASE_ENGINE: ${{ secrets.DATABASE_ENGINE }}
+          DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+          DATABASE_USER: ${{ secrets.DATABASE_USER }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
+          python-version: 3.11
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Run migrations
+        run: |
+          python manage.py migrate
+
       - name: Run tests
         run: |
-          python manage.py test user
+          python manage.py test users
