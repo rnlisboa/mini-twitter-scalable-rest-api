@@ -10,6 +10,8 @@ No diretório raiz
  docker-compose up --build
 ```
 
+acessar: /redoc/ ou /swagger/ para documentação completa
+
 ## 🔐 **Autenticação**
 
 Todas as requisições que envolvem ações de usuários (criação de posts, seguir usuários, etc.) requerem autenticação via **JWT Token**.
@@ -59,8 +61,8 @@ Adicionar seguidor
 
   ```json
   {
-    "user_id": 1,
-    "follower_id": 2
+    "user_id": id,
+    "follower_id": id
   }
   ```
 
@@ -72,8 +74,8 @@ Remover seguidor
 
   ```json
   {
-    "user_id": 1,
-    "follower_id": 2
+    "user_id": id,
+    "follower_id": id
   }
   ```
 
