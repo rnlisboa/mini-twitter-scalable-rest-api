@@ -1,4 +1,3 @@
-# Usa imagem oficial do Python
 FROM python:3.11
 
 WORKDIR /app
@@ -10,16 +9,15 @@ RUN apt-get update && apt-get install -y \
 
 COPY . /app
 
-
 RUN python -m venv /env
-RUN /env/bin/pip install --upgrade pip && \
-    /env/bin/pip install -r requirements.txt
-
 ENV PATH="/env/bin:$PATH"
 
-EXPOSE 8000
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 RUN python manage.py collectstatic --noinput
 
-# Comando padrão para rodar o servidor
-CMD ["sh", "-c", "python manage.py migrate && gunicorn config.asgi:application -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000"]
+EXPOSE 8000
+
+# Comando padrão: aplica migrações e inicia o Gunicorn com WSGI
+CMD ["sh", "-c", "python manage.py migrate && gunicorn config.wsgi:application --bind 0.0.0.0:8000"]
