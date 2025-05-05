@@ -4,6 +4,8 @@ Esta documentação descreve como interagir com a **Mini Twitter API** para real
 
 ## **Como subir a aplicação**
 
+### copie o conteudo de .env.example para um arquivo .env no diretório raíz da aplicação
+
 No diretório raiz
 
 ```
@@ -11,6 +13,7 @@ No diretório raiz
 ```
 
 acessar: /redoc/ ou /swagger/ para documentação completa
+
 
 ## 🔐 **Autenticação**
 
