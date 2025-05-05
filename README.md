@@ -1,7 +1,8 @@
 # 🌐 Mini Twitter API - Documentação Completa
 
 Esta documentação descreve como interagir com a **Mini Twitter API** para realizar operações relacionadas a usuários, seguidores, posts e likes.
-
+## Diagram ER
+![Diagrama ER](./docs/er-diagram.png)
 ## **Como subir a aplicação**
 
 ### copie o conteudo de .env.example para um arquivo .env no diretório raíz da aplicação
