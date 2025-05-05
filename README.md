@@ -6,7 +6,7 @@ Esta documentação descreve como interagir com a **Mini Twitter API** para real
 
 ### copie o conteudo de .env.example para um arquivo .env no diretório raíz da aplicação
 
-No diretório raiz
+No diretório raiz, rode o comando
 
 ```
  docker-compose up --build
@@ -122,7 +122,7 @@ Adiciona curtida
     }
   ```
 
-  Remove curtida
+Remove curtida
 
 - **URL:** `/api/v1/posts/like/like_post/`
 - **Método:** DELETE
