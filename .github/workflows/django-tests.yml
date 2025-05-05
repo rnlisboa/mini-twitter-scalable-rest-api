@@ -13,7 +13,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:14
+        image: postgres:13
         env:
           DATABASE_ENGINE: ${{ secrets.DATABASE_ENGINE }}
           DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
