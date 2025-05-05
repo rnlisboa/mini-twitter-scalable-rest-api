@@ -15,6 +15,7 @@ jobs:
       postgres:
         image: postgres:13
         env:
+          POSTGRES_HOST_AUTH_METHOD: "trust"
           DATABASE_ENGINE: ${{ secrets.DATABASE_ENGINE }}
           DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
           DATABASE_USER: ${{ secrets.DATABASE_USER }}
